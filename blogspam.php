@@ -60,8 +60,8 @@ function skx_self_version()
 // Check the content of a comment, by submitting the body
 // via HTTP to the JSON server.
 //
-function skx_check_comment( $author, $email, 
-	 $url, $comment, 
+function skx_check_comment( $author, $email,
+	 $url, $comment,
 	 $user_ip, $user_agent)
 {
   //
@@ -162,9 +162,8 @@ function skx_options_page()
   // header
   $version = skx_self_version();
   echo "<h2>Blogspam v$version Options </h2>";
-
-  // options form
   ?>
+
 
   <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
   <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
@@ -181,6 +180,28 @@ function skx_options_page()
   </div>
 
 <?php
+
+  //
+  // Stats
+  //
+  $stats_url  = get_option( 'skx_blogspam_server' );
+  $stats_data = array( 'site' => get_bloginfo('url') );
+
+  if ( !$stats_url ) {
+      $stats_url = "http://test.blogspam.net:9999/stats" ;
+  } else {
+      $stats_url = $stats_url . "stats";
+  }
+
+  $stats = wp_remote_post( $stats_url , array( 'body' => json_encode(  $stats_data ) ) );
+  $obj = json_decode( $stats['body'], true );
+
+  if ( $obj && array_key_exists( "spam", $obj ) ) {
+      echo "<p>Dropped " . $obj['spam'] . " comment(s).</p>";
+  }
+  if ( $obj && array_key_exists( "ok", $obj ) ) {
+        echo "<p>Permitted " . $obj['ok'] . " comment(s)</p>";
+  }
 
 }
 

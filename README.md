@@ -9,9 +9,18 @@ the [BlogSpam](http://blogspam.net/) service.
 Installation
 ------------
 
+Clone the repository beneath `wp-content/plugins`, for example:
+
+      $ cd /var/www/wordpress/wp-content/plugins/
+      $ git clone https://github.com/skx/blogspam-wordpress-plugin.git blogspam/
+
 
 Usage
 -----
+
+Enable the plugin via the administrative interface.
+
+Then relax and enjoy.
 
 
 Bugs
@@ -22,7 +31,7 @@ been tested against Wordpress version 3.6.1, please
 report a bug in the github tracker:
 
  * https://github.com/skx/blogspam-wordpress-plugin/issues
- 
+
 
 Steve
 ---

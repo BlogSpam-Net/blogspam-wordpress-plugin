@@ -5,6 +5,9 @@ This directory contains the source code to a plugin
 for Wordpress, which tests incoming comments against
 the [BlogSpam](http://blogspam.net/) service.
 
+The source code for the service itself is [available upon github](https://github.com/skx/blogspam.js/)
+
+
 
 Installation
 ------------

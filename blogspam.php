@@ -189,7 +189,7 @@ function skx_options_page()
   <input type="text" name="server_name" value="<?php echo $server_name; ?>" size="40">
   </p>
 
-  <p>Server Options:
+  <p><a href="http://blogspam.net/api/2.0/testComment.html#options">Server Options</a>:
   <input type="text" name="server_options" value="<?php echo $server_options; ?>" size="40">
   </p><hr />
 

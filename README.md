@@ -31,18 +31,30 @@ Either approach will work, but the second solution doesn't require you to have g
 Usage
 -----
 
-Enable the plugin via the administrative interface, and that should be all you need to do.
+Enable the plugin via the administrative interface, and that should be all you
+need to do.
 
-You'll see the count of rejected/approved comments if you visit the plugin-configuration
-page, but it should be fire and forget.
+You'll see the count of rejected/approved comments if you visit the
+plugin-configuration page, but it should be fire and forget.
+
+
+Tested Versions
+---------------
+
+This plugin has been successfully tested against the following versions
+of Wordpress:
+
+* 3.6.1
+   * The latest stable release.
+* 3.5.2
+   * The version of Wordpress included in the Wheezy release of Debian GNU/Linux.
 
 
 Bugs?
 -----
 
-If you have any problem with this plugin, which has only
-been tested against Wordpress version 3.6.1, please
-report a bug in the github tracker:
+If you have any problem with this plugin please report a bug in the github
+tracker:
 
  * https://github.com/skx/blogspam-wordpress-plugin/issues
 

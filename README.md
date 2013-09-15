@@ -25,6 +25,7 @@ Or if you prefer you can download the state of the repository as a `.zip` file:
 
 Either approach will work, but the second solution doesn't require you to have git installed upon your webserver.
 
+**NOTE**: If you're running the Debian GNU/Linux package of Wordpress, on Wheezy, you'll want to install beneath the directory `/usr/share/wordpress/wp-content/plugins/`.
 
 
 Usage

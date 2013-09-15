@@ -65,7 +65,20 @@ function skx_check_comment( $author, $email,
 	 $user_ip, $user_agent)
 {
   //
-  // Make the structure
+  // Get the server name, and any options.
+  //
+  $server_name       = get_option('skx_blogspam_server');
+  if ( !$server_name ) { $server_name = "http://test.blogspam.net:9999/"; }
+
+  $server_options    = get_option('skx_blogspam_options');
+  if ( !$server_options ) { $server_options = ""; }
+
+  //
+  // Make the structure we'll send.
+  //
+  // This corresponds to:
+  //
+  //  http://blogspam.net/api/2.0/testComment.html
   //
   $struct = array(
                    'ip'      => $_SERVER['REMOTE_ADDR'],
@@ -73,26 +86,19 @@ function skx_check_comment( $author, $email,
                    'mail'    => $email,
                    'comment' => $comment,
                    'site'    => get_bloginfo('url'),
+		   'options' => $server_options,
                    'version' => "Blogspam.php " . skx_self_version() . " on wordpress " . get_bloginfo('version')
                    );
 
   //
-  //  Find the server to use.
-  //
-  $opt_name = 'skx_blogspam_server';
-  $opt_val  = get_option( $opt_name );
-  if ( !$opt_val )
-  {
-    $opt_val = "http://test.blogspam.net:9999/" ;
-  }
-
-  //
   // Send the JSON result.
   //
-  $result = wp_remote_post( $opt_val, array( 'body' => json_encode(  $struct ) ) );
+  $result = wp_remote_post( $server_name, array( 'body' => json_encode(  $struct ) ) );
 
+  //
+  // Get the result.
+  //
   $obj = json_decode( $result['body'], true );
-
 
   if ( $obj['result'] == "SPAM" )
   {

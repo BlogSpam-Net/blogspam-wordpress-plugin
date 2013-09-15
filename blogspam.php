@@ -73,7 +73,7 @@ function skx_check_comment( $author, $email,
                    'mail'    => $email,
                    'comment' => $comment,
                    'site'    => get_bloginfo('url'),
-                   'version' => "Blogspam.php " . skx_self_version() . " on wordpress " .  $wp_version
+                   'version' => "Blogspam.php " . skx_self_version() . " on wordpress " . get_bloginfo('version')
                    );
 
   //

@@ -126,28 +126,38 @@ function skx_options_page()
 {
   // variables for the field and option names
   $hidden_field_name = 'skx_blogspam_submit_hidden';
-  $data_field_name   = 'skx_blogspam_server';
-  $opt_name          = 'skx_blogspam_server';
 
   //
-  // Read in existing option value from database
-  // fall back to the default if it isn't present.
+  //  Get the configured value from the db.
   //
-  $opt_val = get_option( $opt_name );
-  if ( !$opt_val )
+  $server_name       = get_option('skx_blogspam_server');
+  $server_options    = get_option('skx_blogspam_options');
+
+  //
+  //  If not set then use sane defaults.
+  //
+  if ( !$server_name )
   {
-    $opt_val = "http://test.blogspam.net:9999/" ;
+       $server_name = "http://test.blogspam.net:9999/" ;
+  }
+  if ( !$server_options )
+  {
+       $server_options = "options";
   }
 
+  //
   // See if the user has posted us some information
   // If they did, this hidden field will be set to 'Y'
+  //
   if( $_POST[ $hidden_field_name ] == 'Y' )
   {
-    // Read the server name
-    $opt_val = $_POST[ $data_field_name ];
+    // Read the submitted valies.
+    $server_name    = $_POST[ 'server_name' ];
+    $server_options = $_POST[ 'server_options' ];
 
     // Save the posted value in the database
-    update_option( $opt_name, $opt_val );
+    update_option( 'skx_blogspam_server', $server_name );
+    update_option( 'skx_blogspam_options', $server_options );
 
     // Put an options updated message on the screen
 ?>
@@ -164,12 +174,17 @@ function skx_options_page()
   echo "<h2>Blogspam v$version Options </h2>";
   ?>
 
+  <p>The blogspam plugin will pass all submitted comments through a remote service which will test comments.</p><p>Here you can specify the URL of that testing service, along with some optional configuration settings.</p>
 
   <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
   <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
-  <p><?php _e("Blogspam Server:", 'mt_trans_domain' ); ?>
-  <input type="text" name="<?php echo $data_field_name; ?>" value="<?php echo $opt_val; ?>" size="40">
+  <p>Server:
+  <input type="text" name="server_name" value="<?php echo $server_name; ?>" size="40">
+  </p>
+
+  <p>Server Options:
+  <input type="text" name="server_options" value="<?php echo $server_options; ?>" size="40">
   </p><hr />
 
   <p class="submit">

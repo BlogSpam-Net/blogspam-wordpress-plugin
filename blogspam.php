@@ -130,9 +130,6 @@ function skx_add_pages()
 //
 function skx_options_page()
 {
-  // variables for the field and option names
-  $hidden_field_name = 'skx_blogspam_submit_hidden';
-
   //
   //  Get the configured value from the db.
   //
@@ -152,10 +149,35 @@ function skx_options_page()
   }
 
   //
-  // See if the user has posted us some information
-  // If they did, this hidden field will be set to 'Y'
+  // See if the user has submitted a test-request.
   //
-  if( $_POST[ $hidden_field_name ] == 'Y' )
+  if( $_POST[ 'test' ] == 'Test' )
+  {
+      $plugins_url  = get_option( 'skx_blogspam_server' );
+      if ( !$plugins_url ) {
+         $plugins_url = "http://test.blogspam.net:9999/plugins" ;
+      } else {
+         $plugins_url = $plugins_url . "plugins";
+      } 
+      $res = wp_remote_get( $plugins_url );
+      if ( is_wp_error( $res ) )
+      {
+         echo "<div class=\"updated\"><p><strong>Test failed :" . $res->get_error_message(). "</strong></p></div>";      }
+      else
+      {     
+         $obj = json_decode( $res['body'], true );
+         if ( $obj && is_array($obj) ) {
+           echo "<div class=\"updated\"><p><strong>Test SUCCEEDED</strong></p></div>";
+         }
+         else {
+           echo "<div class=\"updated\"><p><strong>Test FAILED</strong></p></div>";             }
+      }
+  }
+
+  //
+  // See if the user has submitted updated values.
+  //
+  if( $_POST[ 'submit' ] == 'Submit' )
   {
     // Read the submitted valies.
     $server_name    = $_POST[ 'server_name' ];
@@ -183,7 +205,6 @@ function skx_options_page()
   <p>The blogspam plugin will pass all submitted comments through a remote service which will test comments.</p><p>Here you can specify the URL of that testing service, along with some optional configuration settings.</p>
 
   <form name="form1" method="post" action="<?php echo str_replace( '%7E', '~', $_SERVER['REQUEST_URI']); ?>">
-  <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
 
   <p>Server:
   <input type="text" name="server_name" value="<?php echo $server_name; ?>" size="40">
@@ -194,7 +215,8 @@ function skx_options_page()
   </p><hr />
 
   <p class="submit">
-  <input type="submit" name="Submit" value="<?php _e('Update Options', 'mt_trans_domain' ) ?>" />
+  <input type="submit" name="submit" value="Submit" />
+  <input type="submit" name="test" value="Test" />
   </p>
 
   </form>

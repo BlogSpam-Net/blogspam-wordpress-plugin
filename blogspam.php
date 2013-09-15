@@ -95,20 +95,21 @@ function skx_check_comment( $author, $email,
   //
   $result = wp_remote_post( $server_name, array( 'body' => json_encode(  $struct ) ) );
 
-  //
-  // Get the result.
-  //
-  $obj = json_decode( $result['body'], true );
-
-  if ( $obj['result'] == "SPAM" )
+  if ( ! is_wp_error( $result ) )
   {
-      //
-      // Mark the result as spam.
-      //
-      add_filter('pre_comment_approved',
-                 create_function('$a', 'return \'spam\';'), 99);
 
-      return 1;
+      $obj = json_decode( $result['body'], true );
+
+      if ( $obj['result'] == "SPAM" )
+      {
+          //
+          // Mark the result as spam.
+          //
+          add_filter('pre_comment_approved',
+                     create_function('$a', 'return \'spam\';'), 99);
+
+          return 1;
+       }
    }
 
   return 0;
@@ -120,7 +121,7 @@ function skx_check_comment( $author, $email,
 //
 function skx_add_pages()
 {
-  add_options_page('Blogspam', 'Blogspam', 8, 'blogspam', 'skx_options_page');
+    add_options_page('Blogspam', 'Blogspam', 8, 'blogspam', 'skx_options_page');
 }
 
 
@@ -158,13 +159,13 @@ function skx_options_page()
          $plugins_url = "http://test.blogspam.net:9999/plugins" ;
       } else {
          $plugins_url = $plugins_url . "plugins";
-      } 
+      }
       $res = wp_remote_get( $plugins_url );
       if ( is_wp_error( $res ) )
       {
          echo "<div class=\"updated\"><p><strong>Test failed :" . $res->get_error_message(). "</strong></p></div>";      }
       else
-      {     
+      {
          $obj = json_decode( $res['body'], true );
          if ( $obj && is_array($obj) ) {
            echo "<div class=\"updated\"><p><strong>Test SUCCEEDED</strong></p></div>";
@@ -237,15 +238,16 @@ function skx_options_page()
   }
 
   $stats = wp_remote_post( $stats_url , array( 'body' => json_encode(  $stats_data ) ) );
-  $obj = json_decode( $stats['body'], true );
-
-  if ( $obj && array_key_exists( "spam", $obj ) ) {
-      echo "<p>Dropped " . $obj['spam'] . " comment(s).</p>";
+  if ( ! is_wp_error( $stats ) )
+  {
+      $obj = json_decode( $stats['body'], true );
+      if ( $obj && array_key_exists( "spam", $obj ) ) {
+          echo "<p>Dropped " . $obj['spam'] . " comment(s).</p>";
+      }
+      if ( $obj && array_key_exists( "ok", $obj ) ) {
+          echo "<p>Permitted " . $obj['ok'] . " comment(s)</p>";
+      }
   }
-  if ( $obj && array_key_exists( "ok", $obj ) ) {
-        echo "<p>Permitted " . $obj['ok'] . " comment(s)</p>";
-  }
-
 }
 
 

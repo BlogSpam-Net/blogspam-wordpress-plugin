@@ -148,7 +148,7 @@ function skx_options_page()
   }
   if ( !$server_options )
   {
-       $server_options = "options";
+       $server_options = "";
   }
 
   //

@@ -268,10 +268,11 @@ function skx_train_comment( $id, $status )
         $ip   = $data['comment_author_IP'];
 
 	//
-	// Get our site + the IP of the comment-submitter.
+	// The data we'll train with.
 	//
-        $json_data = array( 'site' => get_bloginfo('url') );
-	$json_data['ip'] = $ip;
+        $json_data = array(  'ip'   => $ip,
+                             'site' => get_bloginfo('url'),
+                             'train' => 'spam' );
 
 	//
 	// Post to the URL

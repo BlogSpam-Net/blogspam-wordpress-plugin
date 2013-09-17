@@ -251,11 +251,54 @@ function skx_options_page()
 }
 
 
+//
+//  This function is called when a comment is submitted as
+// spam, by the wordpress admin.
+//
+//  We fire off a JSON request to blacklist the IP.
+//
+function skx_train_comment( $id, $status )
+{
+    if ( $status == "spam" )
+    {
+	//
+	// Get the comment data.
+	//
+        $data = get_comment( $id, ARRAY_A );
+        $ip   = $data['comment_author_IP'];
+
+	//
+	// Get our site + the IP of the comment-submitter.
+	//
+        $json_data = array( 'site' => get_bloginfo('url') );
+	$json_data['ip'] = $ip;
+
+	//
+	// Post to the URL
+	//
+        $train_url  = get_option( 'skx_blogspam_server' );
+        if ( !$train_url ) {
+          $train_url = "http://test.blogspam.net:9999/reclassify" ;
+        } else {
+          $train_url = $train_url . "reclassify";
+        }
+
+        $stats = wp_remote_post( $train_url , array( 'body' => json_encode(  $json_data ) ) );
+        if ( ! is_wp_error( $stats ) )
+        {
+	}	
+	else
+        { 
+	    die( $stats->get_error_message() );
+        }
+    }
+}
 
 //
 //  Add the hooks
 //
 add_action( 'wp_blacklist_check', 'skx_check_comment', 10, 6);
+add_action( 'wp_set_comment_status', 'skx_train_comment', 10, 2 );
 add_action( 'admin_menu', 'skx_add_pages' );
 
 

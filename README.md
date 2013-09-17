@@ -23,7 +23,11 @@ Or if you prefer you can download the state of the repository as a `.zip` file:
       $ wget https://github.com/skx/blogspam-wordpress-plugin/archive/master.zip
       $ unzip master.zip
 
-Either approach will work, but the second solution doesn't require you to have git installed upon your webserver.
+Either approach will work, but the first is preferred as it will allow you to update to more recent versions of the plugin easily:
+
+      $ cd /var/www/wordpress/wp-content/plugins/blogspam/
+      $ git update
+
 
 **NOTE**: If you're running the Debian GNU/Linux package of Wordpress, on Wheezy, you'll want to install beneath the directory `/usr/share/wordpress/wp-content/plugins/`.
 

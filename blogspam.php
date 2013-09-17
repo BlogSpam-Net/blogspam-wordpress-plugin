@@ -5,7 +5,7 @@ Plugin Name: Blogspam
 Plugin URI: http://blogspam.net/plugins/
 Description: This plugin allows you to test submitted comments against a centralised service that will filter out a lot of junk.  No manual intervention required.
 Author: Steve Kemp
-Version: 2.2
+Version: 2.3
 Author URI: http://www.steve.org.uk/
 */
 
@@ -286,9 +286,9 @@ function skx_train_comment( $id, $status )
         $stats = wp_remote_post( $train_url , array( 'body' => json_encode(  $json_data ) ) );
         if ( ! is_wp_error( $stats ) )
         {
-	}	
+	}
 	else
-        { 
+        {
 	    die( $stats->get_error_message() );
         }
     }

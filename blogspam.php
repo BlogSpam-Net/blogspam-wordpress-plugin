@@ -278,9 +278,9 @@ function skx_train_comment( $id, $status )
 	//
         $train_url  = get_option( 'skx_blogspam_server' );
         if ( !$train_url ) {
-          $train_url = "http://test.blogspam.net:9999/reclassify" ;
+          $train_url = "http://test.blogspam.net:9999/classify" ;
         } else {
-          $train_url = $train_url . "reclassify";
+          $train_url = $train_url . "classify";
         }
 
         $stats = wp_remote_post( $train_url , array( 'body' => json_encode(  $json_data ) ) );

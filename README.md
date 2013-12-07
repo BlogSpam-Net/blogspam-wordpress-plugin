@@ -1,16 +1,21 @@
 Blogspam Wordpress Plugin
 -------------------------
 
-This directory contains the source code to a plugin for Wordpress, which tests incoming comments against the [BlogSpam.net](http://blogspam.net/) comment-testing service.  (The source code for the service itself is [available upon github](https://github.com/skx/blogspam.js/))
+This plugin is designed to test incoming comments on your blog, in real-time, and automatically mark SPAM comments as SPAM.
 
-The plugin is designed to test incoming comments on your blog, in real-time, and automatically mark spam comments as spam.
+The testing is achieved via a central server, hosted at [BlogSpam.net](http://blogspam.net/).
+
+This plugin is developed and hosted on Github, however it is listed and mirrored on the Wordpress plugin directory:
+
+* http://wordpress.org/plugins/blogspam/
+
 
 
 Installation
 ------------
 
-To install the plugin you need to download it beneath the wordpress `wp-content/plugins` directory,
-as you would for any plugin.
+To install the plugin you need to download it beneath the wordpress
+`wp-content/plugins` directory, as you would for any plugin.
 
 You can do that via a git checkout:
 
@@ -22,7 +27,6 @@ Or if you prefer you can download the state of the repository as a `.zip` file:
       $ cd /var/www/wordpress/wp-content/plugins/
       $ wget https://github.com/skx/blogspam-wordpress-plugin/archive/master.zip
       $ unzip master.zip
-
 
 Either approach will work, but the first is preferred as it will allow you to update to more recent versions of the plugin easily:
 

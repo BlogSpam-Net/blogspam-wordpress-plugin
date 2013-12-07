@@ -23,10 +23,11 @@ Or if you prefer you can download the state of the repository as a `.zip` file:
       $ wget https://github.com/skx/blogspam-wordpress-plugin/archive/master.zip
       $ unzip master.zip
 
+
 Either approach will work, but the first is preferred as it will allow you to update to more recent versions of the plugin easily:
 
       $ cd /var/www/wordpress/wp-content/plugins/blogspam/
-      $ git pull 
+      $ git pull
 
 
 **NOTE**: If you're running the Debian GNU/Linux package of Wordpress, on Wheezy, you'll want to install beneath the directory `/usr/share/wordpress/wp-content/plugins/`.
@@ -52,7 +53,8 @@ of Wordpress:
    * The latest stable release.
 * 3.5.2
    * The version of Wordpress included in the Wheezy release of Debian GNU/Linux.
-
+* 3.7
+   * The current version at the time of last update.
 
 Bugs?
 -----
@@ -62,6 +64,9 @@ tracker:
 
  * https://github.com/skx/blogspam-wordpress-plugin/issues
 
+You can also leave comments on the wordpress site:
+
+   * http://wordpress.org/plugins/blogspam/
 
 Steve
 ---

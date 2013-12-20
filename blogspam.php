@@ -74,6 +74,26 @@ function skx_check_comment( $author, $email,
   if ( !$server_options ) { $server_options = ""; }
 
   //
+  //  Try to ensure the comment is valid UTF-8, which is mandatory
+  // for the JSON extension module.
+  //
+  $comment = iconv('UTF-8', 'UTF-8//IGNORE', $comment);
+
+  //
+  // Try to ensure the comment is valid UTF-8, which is mandatory
+  // for the JSON extension module.
+  //
+  $updated = iconv('UTF-8', 'UTF-8//IGNORE', $comment);
+
+  //
+  // iconv returns false on failure, test for that here.
+  //
+  if ( $updated )
+  {
+      $comment = $updated;
+  }
+
+  //
   // Make the structure we'll send.
   //
   // This corresponds to:

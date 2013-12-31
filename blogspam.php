@@ -73,11 +73,6 @@ function skx_check_comment( $author, $email,
   $server_options    = get_option('skx_blogspam_options');
   if ( !$server_options ) { $server_options = ""; }
 
-  //
-  //  Try to ensure the comment is valid UTF-8, which is mandatory
-  // for the JSON extension module.
-  //
-  $comment = iconv('UTF-8', 'UTF-8//IGNORE', $comment);
 
   //
   // Try to ensure the comment is valid UTF-8, which is mandatory

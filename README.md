@@ -3,12 +3,19 @@ Blogspam Wordpress Plugin
 
 This plugin is designed to test incoming comments on your blog, in real-time, and automatically mark SPAM comments as SPAM.
 
-The testing is achieved via a central server, hosted at [BlogSpam.net](http://blogspam.net/).
-
 This plugin is developed and hosted on Github, however it is listed and mirrored on the Wordpress plugin directory:
 
 * http://wordpress.org/plugins/blogspam/
 
+
+How It Works
+------------
+
+The comments which are received on your blog are converted to JSON objects, and passed to the remote [BlogSpam.net](http://blogspam.net/) site, which will judge them to be "SPAM" or "OK" in real-time.
+
+If the remote service determines that the comment is SPAM it will be saved into your SPAM area, otherwise the comment will be accepted as usual.
+
+The remote testing service, which is written using [node.js](http://nodejs.org) is open-source and [available from github](https://github.com/skx/blogspam.js), and if you wish you can download the code yourself to inspect it, or run your own version.
 
 
 Installation

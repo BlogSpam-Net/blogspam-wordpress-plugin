@@ -64,7 +64,7 @@ of Wordpress:
    * The latest stable release.
 * 3.5.2
    * The version of Wordpress included in the Wheezy release of Debian GNU/Linux.
-* 3.8
+* 3.9
    * The current version at the time of last update.
 
 Bugs?

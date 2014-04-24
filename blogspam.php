@@ -12,7 +12,7 @@ Author URI: http://www.steve.org.uk/
 
 
 
-/*  Copyright 2008-2013  Steve Kemp  (email : http://www.steve.org.uk/contact/ )
+/*  Copyright 2008-2014  Steve Kemp  (email : http://www.steve.org.uk/contact/ )
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
